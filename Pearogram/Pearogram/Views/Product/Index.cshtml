@@ -1,0 +1,147 @@
+﻿@model IEnumerable<Pearogram.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@section datatable
+    {
+    @*<!-- ///////////////////// CSS Start Data Table   ///////////////////// -->*@
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href=" https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+
+            @*<!-- ///////////////////// CSS End Data Table   ///////////////////// -->*@
+
+}
+ 
+@if (TempData["successInsert"] != null)
+{
+    
+    <h4 class="alert alert-success">@TempData["successInsert"]</h4>
+}
+@if (TempData["successUpdate"] != null)
+{
+    <h4 class="alert alert-success">@TempData["successUpdate"]</h4>
+}
+@if (TempData["successDelete"] != null)
+{
+    <h4 class="alert alert-success">@TempData["successDelete"]</h4>
+}
+@if (TempData["failDelete"] != null)
+{
+    <h4 class="alert alert-danger">@TempData["failDelete"]</h4>
+}
+@if (TempData["ProductDetails"] != null)
+{
+    <h4 class="alert alert-danger">@TempData["ProductDetails"]</h4>
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel" style="margin-left:10%; width:70%">
+            <div class="x_title">
+                <a type="button" class="btn btn-outline-primary" asp-action="Add">  <h5>Add <span style="color:#17a2b8"> Product </span> </h5></a>
+
+
+                <div class="clearfix"></div>
+            </div>
+            <br />
+
+            <div class="x_content">
+                <div>
+                    <table id="example" class="table table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    productName
+                                </th>
+                                <th>
+                                    QuentityPerUnit
+                                </th>
+                                <th>
+                                    ReorderLevel
+                                </th>
+                                <th>
+                                    unitInStock
+                                </th>
+                                <th>
+                                    UnitsInOrder
+                                </th>
+                                <th>
+                                    Supplier
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.productName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.QuentityPerUnit)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReorderLevel)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.unitInStock)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UnitsInOrder)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Supplier.SupplierName)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Updata" asp-route-id="@item.productId">Edit</a> |
+
+                                        <a asp-action="Delete" asp-route-id="@item.productId" onclick="return DeleteItem()">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+            
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@section Scripts
+    {
+    @*<!-- ///////////////////// script Start Data Table   ///////////////////// -->*@
+    <script src=" https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src=" https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+    <script src="  https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+
+    @*<!-- ///////////////////// script  End  Data Table   ///////////////////// -->*@
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+        function DeleteItem() {
+            if (confirm("this Supplier it has Products that for therefore when Delete Supplier will Delete Product.  Are you sure you want to delete ...?")) {
+                return true;
+            }
+            return false;
+        }
+    </script>
+ @*   @if (TempData["successInsert"] != null)
+    {
+
+     
+
+        <h4 class="alert alert-success">@TempData["successInsert"]</h4>
+    }*@
+
+}

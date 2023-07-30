@@ -1,0 +1,82 @@
+﻿@model Pearogram.Models.Product;
+
+
+@{
+    ViewData["Title"] = "Add";
+    SelectList Supplier = new SelectList(ViewBag.SupplierID, "SupplierID", "SupplierName");
+}
+
+@if (TempData["failInsert"] != null)
+{
+    <h4 class="alert alert-danger">@TempData["failInsert"]</h4>
+}
+
+
+
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel" style="margin-left:20%; width:50%">
+            <div class="x_title">
+                <h2>Add <span style="color:#17a2b8"> Product </span> </h2>
+
+                <div class="clearfix"></div>
+            </div>
+
+            <br />
+            <div class="x_content">
+                <div>
+                    <form asp-action="Add">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="mb-3">
+                            <label asp-for="productName" class="control-label"></label>
+                            <input asp-for="productName" class="form-control" />
+                            <span asp-validation-for="productName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="QuentityPerUnit" class="control-label"></label>
+                            <input asp-for="QuentityPerUnit" class="form-control" />
+                            <span asp-validation-for="QuentityPerUnit" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ReorderLevel" class="control-label"></label>
+                            <input asp-for="ReorderLevel" class="form-control" />
+                            <span asp-validation-for="ReorderLevel" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="SupplierID" class="control-label">Supplier</label>
+                            <select asp-for="SupplierID" class="form-control" asp-items=Supplier>
+                                <option value="-1">
+                                    -- select Supplier --
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="unitInStock" class="control-label"></label>
+                            <input asp-for="unitInStock" class="form-control" />
+                            <span asp-validation-for="unitInStock" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UnitsInOrder" class="control-label"></label>
+                            <input asp-for="UnitsInOrder" class="form-control" />
+                            <span asp-validation-for="UnitsInOrder" class="text-danger"></span>
+                        </div>
+                      <br />
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </form>
+                    <br />
+                    <div>
+                        <a type="button" class="btn btn-secondary" asp-action="Index">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

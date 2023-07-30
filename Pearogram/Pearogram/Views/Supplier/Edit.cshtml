@@ -1,0 +1,52 @@
+﻿@model Pearogram.Models.Supplier
+
+@{
+    ViewData["Title"] = "Edit";
+}
+@if (TempData["failEdit"] != null)
+{
+    <h4 class="alert alert-danger">@TempData["failEdit"]</h4>
+}
+
+
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel" style="margin-left:20%; width:50%">
+            <div class="x_title">
+                <h2>Update <span style="color:#17a2b8"> Supplier </span> </h2>
+
+                <div class="clearfix"></div>
+            </div>
+
+            <br />
+            <div class="x_content">
+                <div>
+
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="SupplierID" />
+                        <div class="form-group">
+                            <label asp-for="SupplierName" class="control-label"></label>
+                            <input asp-for="SupplierName" class="form-control" />
+                            <span asp-validation-for="SupplierName" class="text-danger"></span>
+                        </div>
+                        <br />
+
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </form>
+                    <br />
+                    <div>
+                        <a type="button" class="btn btn-secondary" asp-action="Index">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
